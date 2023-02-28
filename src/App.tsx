@@ -1,11 +1,9 @@
 import React from 'react';
-import { HomePage } from "@modules";
-import { MainMenuGlobalComponent } from "@/global-components";
+import HomePage from './modules/HomeModule/pages/HomePage/HomePage';
 
 const App: React.FC = () => (
   <>
-    <MainMenuGlobalComponent />
-    <HomePage msg="INVO Academy Starter with React + TypeScript" />
+    <HomePage/>
   </>
 );
 

@@ -1,13 +1,31 @@
-// import React, { useState } from "react";
-// import "./HomePage.scss";
+import React, { useState } from "react";
+import "./HomePage.scss";
+import { Input, InputProps } from "../../components/InputSignIn_Sign_Out";
+import { StringifyOptions } from "querystring";
 
-// interface IProps {
-// }
+const HomePage: React.FC = () => {
 
-// export const HomePage: React.FC<IProps> = () => {
+  const [email, setEmail] = useState("")
 
 
-//   return 
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
 
-// ;
-// };
+
+  return (
+    <>
+  <h3>Spotify</h3>
+  
+  <h1>Sign up for free to start
+  listening.</h1>
+  
+  <label htmlFor="email">
+    Whats your email?
+  <Input value={email} placeholder="enter your email." onChange={handleEmailChange}/>
+  </label>
+  </>
+  )
+};
+
+export default HomePage
