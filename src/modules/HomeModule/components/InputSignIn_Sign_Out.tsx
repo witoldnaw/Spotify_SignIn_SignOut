@@ -5,16 +5,17 @@ import "./InputSignIn_Sign_Out.scss"
 interface InputProps {
     value: string;
     placeholder: string;
+    type: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   }
 
-export const Input: React.FC<InputProps>  = ({value, placeholder, onChange}) => {
+export const Input: React.FC<InputProps>  = ({value, placeholder, onChange, type}) => {
 
 
     
 return (
 <>
-<input className="input" type="text" value={value} placeholder={placeholder} onChange={onChange}/>
+<input className="input" type={type} value={value} placeholder={placeholder} onChange={onChange}/>
 </>
 )
 }
