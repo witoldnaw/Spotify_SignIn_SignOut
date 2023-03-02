@@ -163,6 +163,12 @@ const HomePage: React.FC = () => {
             />
           </label>
 
+          <Input type="radio"
+              value={profilName}
+              placeholder="Enter a profil name."
+              onChange={handleProfilNameChange}
+              />
+
           </div>
         </div>
       </section>
