@@ -164,7 +164,7 @@ const HomePage: React.FC = () => {
           </label>
 
           <Input type="radio"
-              value={profilName}
+              value={Gendre}
               placeholder="Enter a profil name."
               onChange={handleProfilNameChange}
               />
