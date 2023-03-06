@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./HomePage.scss";
-import { Input } from "../../components/InputSignIn_Sign_Out";
 import { Link } from 'react-router-dom';
 import ButtonSignUp from "../../components/Button_SignUp/ButtonSignUp"
+import { Months } from "./NumberMonth/NumberMonth";
 
 const HomePage: React.FC = () => {
 
