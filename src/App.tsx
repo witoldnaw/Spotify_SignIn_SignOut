@@ -1,9 +1,14 @@
 import React from 'react';
 import HomePage from './modules/HomeModule/pages/HomePage/HomePage';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App: React.FC = () => (
   <>
-    <HomePage/>
+    <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          </Routes>
+      </Router>
   </>
 );
 

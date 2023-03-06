@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./HomePage.scss";
 import { Input } from "../../components/InputSignIn_Sign_Out";
+import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
 
@@ -223,6 +224,19 @@ const HomePage: React.FC = () => {
             checked={selectGender==="Other"}
             onChange={handleGenderChange}>
             </input>
+
+              <div>
+            <input type="checkbox">
+            </input>
+            <label>Share my registration date with Spotify’s content providers for
+            marketing purposes.</label>
+            </div>
+
+            <div>
+            <p>By clicking on sing-up. you agree to Sporify’s <Link to="/">Terms and Conditions of Use.</Link></p>
+            <p>To learn more about how. Spotify collects, uses, shares and protects your
+personal data, please see <Link to="/">Spotify’s Privacy Policy.</Link></p>
+            </div>
           </div>
         </div>
       </section>
