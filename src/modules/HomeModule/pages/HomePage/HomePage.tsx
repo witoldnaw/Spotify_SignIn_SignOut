@@ -1,24 +1,27 @@
-import React, { useState, ChangeEventHandler } from "react";
+import React, { useState } from "react";
 import "./HomePage.scss";
 import { Input } from "../../components/InputSignIn_Sign_Out";
-import { StringifyOptions } from "querystring";
-import { LargeNumberLike } from "crypto";
 
 const HomePage: React.FC = () => {
-  const numberMonth = [
-    "",
-    "January",
-    "Febuary",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+
+  interface Month {
+    name: string;
+    days: number;
+  }
+
+  const numberMonth:Month[] = [
+    { name: "January", days: 31 },
+    { name: "Febuary", days: 28 },
+    { name: "March", days: 31 },
+    { name: "April", days: 30 },
+    { name: "May", days: 31 },
+    { name: "June", days: 30 },
+    { name: "July", days: 31 },
+    { name: "August", days: 31 },
+    { name: "September", days: 30 },
+    { name: "October", days: 31 },
+    { name: "November", days: 30 },
+    { name: "December", days: 31 },
   ];
 
   const [email, setEmail] = useState("");
@@ -31,6 +34,7 @@ const HomePage: React.FC = () => {
   const [minDayValue, setMinDayValue] = useState(1);
   const [maxDayValue, setMaxDayValue] = useState(31);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectGender, setSelectGender] = useState<string>()
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -57,21 +61,30 @@ const HomePage: React.FC = () => {
   };
 
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = parseInt(event.target.value, 10);
-    setSelectDay(inputValue);
-  
-    if (inputValue > 31) {
-      setErrorMessage("Max value is 31");
+    const inputValueDay = parseInt(event.target.value, 10);
+    setSelectDay(inputValueDay);
+
+    if ( inputValueDay > 31 || inputValueDay < 1) {
+      setErrorMessage("Podaj prawidłowy dzień miesiąca");
+    } else {
+      setErrorMessage("");
     }
-      else {
-        setErrorMessage("");
-      }
-    } 
-  
+  };
 
   const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValueYear = parseInt(event.target.value, 10);
     setSelectYear(event.target.value);
+
+    if ( inputValueYear > 1900 || inputValueYear < 2020) {
+      setErrorMessage("Podaj prawidłowy dzień miesiąca");
+    } else {
+      setErrorMessage("");
+    }
   };
+
+  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectGender(event.target.value)
+  }
 
   return (
     <>
@@ -125,50 +138,91 @@ const HomePage: React.FC = () => {
         <div className="dateOfBirth">
           <p>What’s your date of birth</p>
           <div className="input_date">
-            <label htmlFor="selectMonth">month</label>
+            <label htmlFor="selectMonth">Month</label>
             <select
               id="selectMonth"
               value={selectMonth}
+              placeholder="months"
               onChange={handleMonthChange}
             >
-              {numberMonth.map((month) => {
-                return (
-                  <option key="select month" value={month}>
-                    {month}
-                  </option>
-                );
-              })}
+              <option value="" disabled selected>
+                Months
+              </option>
+              {numberMonth.map((month) => (
+                <option key={month.name} value={month.name}>
+                  {month.name}
+                </option>
+              ))}
+              ;
             </select>
             <label htmlFor="Day">
-            Day
-            <input
-              type="number"
-              min={minDayValue}
-              max={maxDayValue}
-              value={selectDay}
-              placeholder="DD"
-              onChange={handleDayChange}
-            />
-          </label>
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
-          <label htmlFor="Year">
-            Year
-            <input
-              type="number"
-              min={minDayValue}
-              max={maxDayValue}
-              value={selectYear}
-              placeholder="YY"
-              onChange={handleYearChange}
-            />
-          </label>
-
-          <Input type="radio"
-              value={Gendre}
-              placeholder="Enter a profil name."
-              onChange={handleProfilNameChange}
+              Day
+              <input
+                type="number"
+                min={minDayValue}
+                max={maxDayValue}
+                value={selectDay}
+                placeholder="DD"
+                onChange={handleDayChange}
               />
+            </label>
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
+            <label htmlFor="Year">
+              Year
+              <input
+                type="number"
+                value={selectYear}
+                placeholder="YY"
+                onChange={handleYearChange}
+              />
+            </label>
 
+              <p>What is your gender?</p>
+            <label>
+              Male
+              </label>
+            <input 
+            type="radio"
+            value="Male"
+            name="gender"
+            checked={selectGender==="Male"}
+            onChange={handleGenderChange}>
+            </input>
+            
+            <label>
+              Female
+              </label>
+            <input 
+            type="radio"
+            value="Female"
+            name="gender"
+            checked={selectGender==="Female"}
+            onChange={handleGenderChange}>
+            </input>
+
+            <label>
+              Non-binary
+              </label>
+            <input 
+            type="radio"
+            value="non-binary"
+            name="gender"
+            checked={selectGender==="non-binary"}
+            onChange={handleGenderChange}>
+            </input>
+
+            <label>
+              Other
+              </label>
+            <input 
+            type="radio"
+            value="Other"
+            name="gender"
+            checked={selectGender==="Other"}
+            onChange={handleGenderChange}>
+            </input>
           </div>
         </div>
       </section>
