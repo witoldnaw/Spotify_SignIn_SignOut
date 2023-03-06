@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./HomePage.scss";
 import { Input } from "../../components/InputSignIn_Sign_Out";
 import { Link } from 'react-router-dom';
+import ButtonSignUp from "../../components/Button_SignUp/ButtonSignUp"
 
 const HomePage: React.FC = () => {
 
@@ -34,7 +35,8 @@ const HomePage: React.FC = () => {
   const [selectYear, setSelectYear] = useState("");
   const [minDayValue, setMinDayValue] = useState(1);
   const [maxDayValue, setMaxDayValue] = useState(31);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessageDay, setErrorMessageDay] = useState("");
+  const [errorMessageYear, setErrorMessageYear] = useState("");
   const [selectGender, setSelectGender] = useState<string>()
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,9 +68,9 @@ const HomePage: React.FC = () => {
     setSelectDay(inputValueDay);
 
     if ( inputValueDay > 31 || inputValueDay < 1) {
-      setErrorMessage("Podaj prawidłowy dzień miesiąca");
+      setErrorMessageDay("Podaj prawidłowy dzień miesiąca");
     } else {
-      setErrorMessage("");
+      setErrorMessageDay("");
     }
   };
 
@@ -76,10 +78,10 @@ const HomePage: React.FC = () => {
     const inputValueYear = parseInt(event.target.value, 10);
     setSelectYear(event.target.value);
 
-    if ( inputValueYear > 1900 || inputValueYear < 2020) {
-      setErrorMessage("Podaj prawidłowy dzień miesiąca");
+    if ( inputValueYear < 1900 || inputValueYear > 2020) {
+      setErrorMessageYear("Podaj prawidłowy rok");
     } else {
-      setErrorMessage("");
+      setErrorMessageYear("");
     }
   };
 
@@ -97,7 +99,7 @@ const HomePage: React.FC = () => {
         <div className="signUp_wrapper">
           <label htmlFor="email">
             Whats your email?
-            <Input
+            <input
               type="email"
               value={email}
               placeholder="Enter your email."
@@ -107,7 +109,7 @@ const HomePage: React.FC = () => {
 
           <label htmlFor="confirmEmail">
             Confirm your email?
-            <Input
+            <input
               type="email"
               value={confirmEmail}
               placeholder="Confirm your email."
@@ -117,9 +119,8 @@ const HomePage: React.FC = () => {
 
           <label htmlFor="password">
             Create a password
-            <Input
+            <input
               type="password"
-              value={password}
               placeholder="Create a password."
               onChange={handlePasswordChange}
             />
@@ -127,7 +128,7 @@ const HomePage: React.FC = () => {
 
           <label htmlFor="profilName">
             What should we call you?
-            <Input
+            <input
               type="text"
               value={profilName}
               placeholder="Enter a profil name."
@@ -167,8 +168,8 @@ const HomePage: React.FC = () => {
                 onChange={handleDayChange}
               />
             </label>
-            {errorMessage && (
-              <div className="error-message">{errorMessage}</div>
+            {errorMessageDay && (
+              <div className="error-message">{errorMessageDay}</div>
             )}
             <label htmlFor="Year">
               Year
@@ -179,7 +180,9 @@ const HomePage: React.FC = () => {
                 onChange={handleYearChange}
               />
             </label>
-
+            {errorMessageYear && (
+              <div className="error-message">{errorMessageYear}</div>
+            )}
               <p>What is your gender?</p>
             <label>
               Male
@@ -238,6 +241,9 @@ const HomePage: React.FC = () => {
 personal data, please see <Link to="/">Spotify’s Privacy Policy.</Link></p>
             </div>
           </div>
+          <ButtonSignUp/>
+
+          <p>Have an account?<Link to="#">Log in.</Link></p>
         </div>
       </section>
     </>
