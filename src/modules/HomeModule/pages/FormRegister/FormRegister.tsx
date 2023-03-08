@@ -1,11 +1,10 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth, db } from "../../../../API/firebase";
 import { firebaseErrors } from "../../../../Utils/FirebaseErrors";
 import { getFormData } from "../../../../Utils/getFormData";
 import { doc, setDoc } from "firebase/firestore";
 import HomePage from "../HomePage/HomePage";
-import { FormEvent } from "react";
 
 
 export const Register = () => {
@@ -29,7 +28,7 @@ export const Register = () => {
     <>
     <HomePage
       submitText="SignUp"
-      onSubmit={handleRegister}
+      Submit={handleRegister}
     />
     </>
   );

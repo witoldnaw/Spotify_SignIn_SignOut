@@ -7,11 +7,11 @@ import ButtonSignUp from "../../components/Button_SignUp/ButtonSignUp"
 
 interface HomePageProps {
   submitText: string;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => Promise<Record<string, string> | undefined>;
+  Submit: (e: FormEvent<HTMLFormElement>) => Promise<Record<string, string> | undefined>;
 }
 
 const HomePage: React.FC<HomePageProps> = ({ submitText,
-  onSubmit }) => {
+  Submit }) => {
 
   interface Month {
     name: string;
@@ -106,7 +106,7 @@ const HomePage: React.FC<HomePageProps> = ({ submitText,
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            onSubmit(e);
+            Submit(e);
           }}
         >
 
@@ -258,7 +258,7 @@ const HomePage: React.FC<HomePageProps> = ({ submitText,
                   personal data, please see <Link to="/">Spotify’s Privacy Policy.</Link></p>
               </div>
             </div>
-            <button>{submitText}</button>
+            <button>SignUp</button>
             {/* <ButtonSignUp /> */}
 
             <p>Have an account?<Link to="#">Log in.</Link></p>
