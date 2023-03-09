@@ -14,7 +14,7 @@ export const FoRegister = () => {
     try {
       const { email, password, name, surname, description } = getFormData(e);
       const jwt = await createUserWithEmailAndPassword(auth as Auth, email, password);
-      const userData = { status: "user", email, name, surname, description };
+      const userData = { status: "user", email};
       const userRef = doc(db, "users", jwt.user.uid);
       e.preventDefault();
       await setDoc(userRef, {
@@ -28,7 +28,7 @@ export const FoRegister = () => {
   return (
     <FormReg
       onSubmit={handleRegister} 
-      submitText={"KLIKNIJ"} 
-      event={e.preventDefault()}   />
+      submitText={"KLIKNIJ"}  
+      />
   );
 };

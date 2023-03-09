@@ -5,12 +5,10 @@ interface Props {
   submitText: string;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;  
 }
-
 interface Month {
     name: string;
     days: number;
   }
-
 
 export const FormReg = ({ onSubmit, submitText }: Props) => {
 
