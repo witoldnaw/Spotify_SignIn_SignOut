@@ -1,19 +1,20 @@
+import { createUserWithEmailAndPassword, Auth } from "@firebase/auth";
 import React, { FormEvent } from "react";
-import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth, db } from "../../../../API/firebase";
 import { firebaseErrors } from "../../../../Utils/FirebaseErrors";
 import { getFormData } from "../../../../Utils/getFormData";
 import { doc, setDoc } from "firebase/firestore";
-import HomePage from "../HomePage/HomePage";
+import { FormReg } from "./FormReg";
+import { useState } from "react";
 
 
-export const Register = () => {
-    
+export const FoRegister = () => {
+
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     try {
-      const { email, password } = getFormData(e);
-      const jwt = await createUserWithEmailAndPassword(auth, email, password);
-      const userData = { email };
+      const { email, password, name, surname, description } = getFormData(e);
+      const jwt = await createUserWithEmailAndPassword(auth as Auth, email, password);
+      const userData = { status: "user", email, name, surname, description };
       const userRef = doc(db, "users", jwt.user.uid);
       e.preventDefault();
       await setDoc(userRef, {
@@ -21,15 +22,13 @@ export const Register = () => {
         id: jwt.user.uid,
       });
     } catch (error) {
-      return firebaseErrors
+      return firebaseErrors;
     }
   };
   return (
-    <>
-    <HomePage
-      submitText="SignUp"
-      Submit={handleRegister}
-    />
-    </>
+    <FormReg
+      onSubmit={handleRegister} 
+      submitText={"KLIKNIJ"} 
+      event={e.preventDefault()}   />
   );
 };

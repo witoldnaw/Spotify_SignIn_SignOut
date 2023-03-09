@@ -1,12 +1,12 @@
 import React from 'react';
-import HomePage from './modules/HomeModule/pages/HomePage/HomePage';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
+import { FoRegister } from './modules/HomeModule/pages/Form/Formmm';
 
 const App: React.FC = () => (
   <>
     <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<FoRegister />} />
           </Routes>
       </Router>
   </>
