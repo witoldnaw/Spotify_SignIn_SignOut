@@ -8,19 +8,21 @@ import { FormReg } from "./FormReg";
 import { useState } from "react";
 
 
-interface FoRegisterProps {
-  setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
-  setSelectMonth: (month: string) => void;
-  setSelectDay: (day: number) => void;
-  setSelectYear: (year: number) => void;
-}
+// interface FoRegisterProps {
+//   setEmail: React.Dispatch<React.SetStateAction<string>>;
+//   setPassword: React.Dispatch<React.SetStateAction<string>>;
+//   setSelectMonth: React.Dispatch<React.SetStateAction<string>>;
+//   setSelectDay: React.Dispatch<React.SetStateAction<number>>;
+//   setSelectYear: React.Dispatch<React.SetStateAction<string>>;
+// }
 
-export const FoRegister = ({ setEmail, 
-  setPassword, 
-  setSelectMonth, 
-  setSelectDay, 
-  setSelectYear}: FoRegisterProps) => {
+// { setEmail, 
+//   setPassword, 
+//   setSelectMonth, 
+//   setSelectDay, 
+//   setSelectYear}: FoRegisterProps
+
+export const FoRegister = () => {
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     try {
@@ -36,7 +38,7 @@ export const FoRegister = ({ setEmail,
       setEmail("");
       setPassword("");
       setSelectMonth("");
-      setSelectDay("");
+      setSelectDay(0);
       setSelectYear("");
     } catch (error) {
       return firebaseErrors;

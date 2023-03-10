@@ -1,6 +1,5 @@
 import React, { FormEvent, useState } from "react";
 import { Link } from 'react-router-dom';
-import { FoRegister } from "./Formmm";
 
 interface Props {
   submitText: string;
@@ -53,10 +52,10 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           };
         
           const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const inputValueDay = (event.target.value);
+            const inputValueDay = parseInt(event.target.value, 10);
             setSelectDay(inputValueDay);
         
-            if (inputValueDay > "31" || inputValueDay < "1") {
+            if (inputValueDay > 31 || inputValueDay < 1) {
               setErrorMessageDay("Podaj prawidłowy dzień miesiąca");
             } else {
               setErrorMessageDay("");
@@ -84,7 +83,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
     const [password, setPassword] = useState("");
     const [profilName, setProfilName] = useState("");
     const [selectMonth, setSelectMonth] = useState("");
-    const [selectDay, setSelectDay] = useState("");
+    const [selectDay, setSelectDay] = useState<number>();
     const [selectYear, setSelectYear] = useState("");
     const [minDayValue, setMinDayValue] = useState(1);
     const [maxDayValue, setMaxDayValue] = useState(31);
@@ -261,13 +260,5 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           <p>Have an account?<Link to="#">Log in.</Link></p>
         </div>
       </form>
-      <FoRegister
-        setEmail={setEmail}
-        setPassword={setPassword}
-        setSelectMonth={setSelectMonth}
-        setSelectDay={setSelectDay}
-        setSelectYear={setSelectYear}
-      />
-
     </section>
 )};

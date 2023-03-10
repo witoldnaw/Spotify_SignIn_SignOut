@@ -6,7 +6,7 @@ const App: React.FC = () => (
   <>
     <Router>
         <Routes>
-          <Route path="/" element={<FoRegister />} />
+          <Route path="/" element={<FoRegister  />} />
           </Routes>
       </Router>
   </>
