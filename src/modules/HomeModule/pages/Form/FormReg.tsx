@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import { Link } from 'react-router-dom';
+import { FoRegister } from "./Formmm";
 
 interface Props {
   submitText: string;
@@ -52,10 +53,10 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           };
         
           const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const inputValueDay = parseInt(event.target.value, 10);
+            const inputValueDay = (event.target.value);
             setSelectDay(inputValueDay);
         
-            if (inputValueDay > 31 || inputValueDay < 1) {
+            if (inputValueDay > "31" || inputValueDay < "1") {
               setErrorMessageDay("Podaj prawidłowy dzień miesiąca");
             } else {
               setErrorMessageDay("");
@@ -83,7 +84,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
     const [password, setPassword] = useState("");
     const [profilName, setProfilName] = useState("");
     const [selectMonth, setSelectMonth] = useState("");
-    const [selectDay, setSelectDay] = useState<number>();
+    const [selectDay, setSelectDay] = useState("");
     const [selectYear, setSelectYear] = useState("");
     const [minDayValue, setMinDayValue] = useState(1);
     const [maxDayValue, setMaxDayValue] = useState(31);
@@ -157,6 +158,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               id="selectMonth"
               value={selectMonth}
               placeholder="months"
+              name="selectMonth"
               onChange={handleMonthChange}
             >
               <option value="" disabled selected>
@@ -173,6 +175,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               Day
               <input
                 type="number"
+                name="selectDay"
                 min={minDayValue}
                 max={maxDayValue}
                 value={selectDay}
@@ -187,6 +190,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               Year
               <input
                 type="number"
+                name="selectYear"
                 value={selectYear}
                 placeholder="YY"
                 onChange={handleYearChange}
@@ -257,5 +261,13 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           <p>Have an account?<Link to="#">Log in.</Link></p>
         </div>
       </form>
+      <FoRegister
+        setEmail={setEmail}
+        setPassword={setPassword}
+        setSelectMonth={setSelectMonth}
+        setSelectDay={setSelectDay}
+        setSelectYear={setSelectYear}
+      />
+
     </section>
 )};

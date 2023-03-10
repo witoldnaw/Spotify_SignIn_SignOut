@@ -8,19 +8,36 @@ import { FormReg } from "./FormReg";
 import { useState } from "react";
 
 
-export const FoRegister = () => {
+interface FoRegisterProps {
+  setEmail: (email: string) => void;
+  setPassword: (password: string) => void;
+  setSelectMonth: (month: string) => void;
+  setSelectDay: (day: number) => void;
+  setSelectYear: (year: number) => void;
+}
+
+export const FoRegister = ({ setEmail, 
+  setPassword, 
+  setSelectMonth, 
+  setSelectDay, 
+  setSelectYear}: FoRegisterProps) => {
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     try {
-      const { email, password, name, surname, description } = getFormData(e);
+      const { email, password, selectMonth, selectDay, selectYear} = getFormData(e);
       const jwt = await createUserWithEmailAndPassword(auth as Auth, email, password);
-      const userData = { status: "user", email};
+      const userData = { status: "user", email, selectDay, selectMonth, selectYear};
       const userRef = doc(db, "users", jwt.user.uid);
       e.preventDefault();
       await setDoc(userRef, {
         ...userData,
         id: jwt.user.uid,
       });
+      setEmail("");
+      setPassword("");
+      setSelectMonth("");
+      setSelectDay("");
+      setSelectYear("");
     } catch (error) {
       return firebaseErrors;
     }
