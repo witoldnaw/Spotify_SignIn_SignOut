@@ -102,6 +102,8 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
         onSubmit={(e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           onSubmit(e);
+          setEmail("")
+// tu dopisac resztę 
         }}
       >
 
