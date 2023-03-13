@@ -102,8 +102,15 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
         onSubmit={(e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           onSubmit(e);
-          setEmail("")
-// tu dopisac resztę 
+          setEmail("");
+          setConfirmEmail("")
+          setPassword("");
+          setSelectMonth("");
+          setSelectDay(1);
+          setSelectYear("");
+          setProfilName("")
+          setSelectGender("")
+
         }}
       >
 
@@ -134,6 +141,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
             <input
               type="password"
               name="password"
+              value={password}
               placeholder="Create a password."
               onChange={handlePasswordChange}
             />

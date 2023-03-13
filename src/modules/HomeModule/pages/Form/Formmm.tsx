@@ -5,22 +5,8 @@ import { firebaseErrors } from "../../../../Utils/FirebaseErrors";
 import { getFormData } from "../../../../Utils/getFormData";
 import { doc, setDoc } from "firebase/firestore";
 import { FormReg } from "./FormReg";
-import { useState } from "react";
 
 
-// interface FoRegisterProps {
-//   setEmail: React.Dispatch<React.SetStateAction<string>>;
-//   setPassword: React.Dispatch<React.SetStateAction<string>>;
-//   setSelectMonth: React.Dispatch<React.SetStateAction<string>>;
-//   setSelectDay: React.Dispatch<React.SetStateAction<number>>;
-//   setSelectYear: React.Dispatch<React.SetStateAction<string>>;
-// }
-
-// { setEmail, 
-//   setPassword, 
-//   setSelectMonth, 
-//   setSelectDay, 
-//   setSelectYear}: FoRegisterProps
 
 export const FoRegister = () => {
 
@@ -35,11 +21,6 @@ export const FoRegister = () => {
         ...userData,
         id: jwt.user.uid,
       });
-      setEmail("");
-      setPassword("");
-      setSelectMonth("");
-      setSelectDay(0);
-      setSelectYear("");
     } catch (error) {
       return firebaseErrors;
     }
