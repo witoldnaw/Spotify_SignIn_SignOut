@@ -16,7 +16,7 @@ export const FormLogin = ({ submitText, onSubmit }: PropsLogin) => (
       </div>
 
       <div>
-        <label htmlFor="password">Hasło:</label>
+        <label htmlFor="password">Password:</label>
         <input type="password" name="password" id="password" />
       </div>
 

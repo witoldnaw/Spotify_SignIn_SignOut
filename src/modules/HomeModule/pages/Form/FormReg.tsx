@@ -123,6 +123,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={email}
               placeholder="Enter your email."
               onChange={handleEmailChange}
+              required
             />
           </label>
 
@@ -133,6 +134,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={confirmEmail}
               placeholder="Confirm your email."
               onChange={handleConfirmEmailChange}
+              required
             />
           </label>
 
@@ -144,6 +146,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={password}
               placeholder="Create a password."
               onChange={handlePasswordChange}
+              required
             />
           </label>
 
@@ -155,6 +158,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={profilName}
               placeholder="Enter a profil name."
               onChange={handleProfilNameChange}
+              required
             />
           </label>
           <p>This appears on your profile.</p>
@@ -169,6 +173,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               placeholder="months"
               name="selectMonth"
               onChange={handleMonthChange}
+              required
             >
               <option value="" disabled selected>
                 Months
@@ -216,6 +221,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               type="radio"
               value="Male"
               name="gender"
+              required
               checked={selectGender === "Male"}
               onChange={handleGenderChange}>
             </input>
@@ -228,7 +234,8 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value="Female"
               name="gender"
               checked={selectGender === "Female"}
-              onChange={handleGenderChange}>
+              onChange={handleGenderChange}
+              required>
             </input>
 
             <label>
@@ -239,7 +246,8 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value="non-binary"
               name="gender"
               checked={selectGender === "non-binary"}
-              onChange={handleGenderChange}>
+              onChange={handleGenderChange}
+              >
             </input>
 
             <label>
@@ -258,7 +266,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               </input>
               <label>Share my registration date with Spotify’s content providers for
                 marketing purposes.</label>
-            </div>
+            </div>git 
 
             <div>
               <p>By clicking on sing-up. you agree to Sporify’s <Link to="/">Terms and Conditions of Use.</Link></p>
