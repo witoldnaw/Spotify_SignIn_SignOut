@@ -20,13 +20,5 @@ const checkIfEmailExists = async (email: string): Promise<boolean> => {
   }
 };
 
-const handleEmailExist = () => {
-    const handleCheckEmailExists = async (email: string) => {
-      const exists = await checkIfEmailExists(email);
-      console.log(exists);
-    };
-  
-
-    }
 
 export default checkIfEmailExists;
