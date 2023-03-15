@@ -59,3 +59,46 @@ export const FoRegister = () => {
 
 
 // PORWNUJE EMAIL DO CONFIRM EMAIL !!!! 
+
+
+// ponizej kod do sprawdzenia 
+
+// const [email, setEmail] = useState("");
+// const [confirmEmail, setConfirmEmail] = useState("");
+// const [emailError, setEmailError] = useState("");
+
+// const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//   setEmail(event.target.value);
+// };
+
+// const handleConfirmEmailChange = (
+//   event: React.ChangeEvent<HTMLInputElement>
+// ) => {
+//   setConfirmEmail(event.target.value);
+//   if (email !== event.target.value) {
+//     setEmailError("Emails do not match");
+//   } else {
+//     setEmailError("");
+//   }
+// };
+
+// return (
+//   <form onSubmit={handleSubmit}>
+//     <label htmlFor="email">Email</label>
+//     <input
+//       type="email"
+//       id="email"
+//       value={email}
+//       onChange={handleEmailChange}
+//     />
+//     <label htmlFor="confirm-email">Confirm Email</label>
+//     <input
+//       type="email"
+//       id="confirm-email"
+//       value={confirmEmail}
+//       onChange={handleConfirmEmailChange}
+//     />
+//     {emailError && <p>{emailError}</p>}
+//     <button type="submit">Submit</button>
+//   </form>
+// );
