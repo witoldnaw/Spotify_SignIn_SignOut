@@ -1,8 +1,5 @@
 import React, { FormEvent, useState } from "react";
 import { Link } from 'react-router-dom';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
 
 interface Props {
   submitText: string;
@@ -77,11 +74,11 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               setErrorMessageYear("");
             }
           };
-
+        
           const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setSelectGender(event.target.value)
           }
-        
+
 
     const [email, setEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
@@ -95,6 +92,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
     const [errorMessageDay, setErrorMessageDay] = useState("");
     const [errorMessageYear, setErrorMessageYear] = useState("");
     const [selectGender, setSelectGender] = useState<string>()
+
 
     return (
       <section>
