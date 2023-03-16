@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 interface Props {
   submitText: string;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;  
-
 }
 interface Month {
     name: string;
     days: number;
   }
-
 
 export const FormReg = ({ onSubmit, submitText }: Props) => {
 
@@ -30,13 +28,15 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
       ];
     
         const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            setEmail(event.target.value);
+          const emailInput = event.target.value;
+            setEmail(emailInput);
           };
         
           const handleConfirmEmailChange = (
             event: React.ChangeEvent<HTMLInputElement>
           ) => {
-            setConfirmEmail(event.target.value);
+            const emailValue = event.target.value;
+            setConfirmEmail(emailValue);
           };
         
           const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,29 +50,25 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           };
         
           const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-            setSelectMonth(event.target.value);
+            const monthName = event.target.value
+            setSelectMonth(monthName);
+
+            const selectedMonth = numberMonth.find((m) => m.name === monthName)
+            if (selectedMonth) {
+              setMaxDayValue(selectedMonth.days);
+            }
           };
         
           const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueDay = parseInt(event.target.value, 10);
             setSelectDay(inputValueDay);
-        
-            if (inputValueDay > 31 || inputValueDay < 1) {
-              setErrorMessageDay("Podaj prawidłowy dzień miesiąca");
-            } else {
-              setErrorMessageDay("");
-            }
-          };
+            setErrorMessageDay(inputValueDay > maxDayValue || inputValueDay < 1 ? "Podaj prawidłowy dzień miesiąca" : "")
+            } 
         
           const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueYear = parseInt(event.target.value, 10);
-            setSelectYear(event.target.value);
-        
-            if (inputValueYear < 1900 || inputValueYear > 2020) {
-              setErrorMessageYear("Podaj prawidłowy rok");
-            } else {
-              setErrorMessageYear("");
-            }
+            setSelectYear(inputValueYear);
+            setErrorMessageYear(inputValueYear < 1900 || inputValueYear > 2020 ? "Podaj prawidłowy rok" : "");
           };
         
           const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,11 +82,12 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
     const [profilName, setProfilName] = useState("");
     const [selectMonth, setSelectMonth] = useState("");
     const [selectDay, setSelectDay] = useState<number>();
-    const [selectYear, setSelectYear] = useState("");
+    const [selectYear, setSelectYear] = useState<number>();
     const [minDayValue, setMinDayValue] = useState(1);
     const [maxDayValue, setMaxDayValue] = useState(31);
     const [errorMessageDay, setErrorMessageDay] = useState("");
     const [errorMessageYear, setErrorMessageYear] = useState("");
+    const [errorMessageEmail, setErrorMessageEmail] = useState("")
     const [selectGender, setSelectGender] = useState<string>()
 
 
@@ -102,17 +99,17 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
 
       <form
         onSubmit={(e: FormEvent<HTMLFormElement>) => {
+          setErrorMessageEmail(confirmEmail !== email ? "Mail nie jest taki sam" : "");
           e.preventDefault();
           onSubmit(e);
           setEmail("");
           setConfirmEmail("")
           setPassword("");
           setSelectMonth("");
-          setSelectDay(1);
-          setSelectYear("");
+          setSelectDay(NaN);
+          setSelectYear(NaN);
           setProfilName("")
           setSelectGender("")
-
         }}
       >
 
@@ -125,10 +122,12 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={email}
               placeholder="Enter your email."
               onChange={handleEmailChange}
-              required
+              // required
             />
           </label>
-
+          {errorMessageEmail && (
+              <div className="error-message">{errorMessageEmail}</div>
+            )}
           <label htmlFor="confirmEmail">
             Confirm your email?
             <input
@@ -136,7 +135,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={confirmEmail}
               placeholder="Confirm your email."
               onChange={handleConfirmEmailChange}
-              required
+              // required
             />
           </label>
 
@@ -148,7 +147,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={password}
               placeholder="Create a password."
               onChange={handlePasswordChange}
-              required
+              // required
             />
           </label>
 
@@ -160,7 +159,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={profilName}
               placeholder="Enter a profil name."
               onChange={handleProfilNameChange}
-              required
+              // required
             />
           </label>
           <p>This appears on your profile.</p>
@@ -175,7 +174,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               placeholder="months"
               name="selectMonth"
               onChange={handleMonthChange}
-              required
+              // required
             >
               <option value="" disabled selected>
                 Months
@@ -223,7 +222,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               type="radio"
               value="Male"
               name="gender"
-              required
+              // required
               checked={selectGender === "Male"}
               onChange={handleGenderChange}>
             </input>
@@ -236,8 +235,9 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value="Female"
               name="gender"
               checked={selectGender === "Female"}
-              onChange={handleGenderChange}
-              required>
+              onChange={handleGenderChange}>
+              {/* required */}
+              
             </input>
 
             <label>
