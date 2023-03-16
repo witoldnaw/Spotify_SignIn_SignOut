@@ -62,7 +62,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueDay = parseInt(event.target.value, 10);
             setSelectDay(inputValueDay);
-            setErrorMessageDay(inputValueDay > maxDayValue || inputValueDay < 1 ? "Podaj prawidłowy dzień miesiąca" : "")
+            setErrorMessageDay(inputValueDay > maxDayValue || inputValueDay < minDayValue ? "Podaj prawidłowy dzień miesiąca" : "")
             } 
         
           const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
