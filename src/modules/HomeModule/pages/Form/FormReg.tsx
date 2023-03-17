@@ -101,15 +101,16 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
         onSubmit={(e: FormEvent<HTMLFormElement>) => {
           setErrorMessageEmail(confirmEmail !== email ? "Mail nie jest taki sam" : "");
           e.preventDefault();
+    
           onSubmit(e);
-          setEmail("");
-          setConfirmEmail("")
-          setPassword("");
-          setSelectMonth("");
-          setSelectDay(NaN);
-          setSelectYear(NaN);
-          setProfilName("")
-          setSelectGender("")
+          // setEmail("");
+          // setConfirmEmail("")
+          // setPassword("");
+          // setSelectMonth("");
+          // setSelectDay(NaN);
+          // setSelectYear(NaN);
+          // setProfilName("")
+          // setSelectGender("")
         }}
       >
 

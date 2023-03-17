@@ -20,6 +20,7 @@ export const FoRegister = () => {
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // e.target.reset();
     try {
       const { email, password, selectMonth, selectDay, selectYear } = getFormData(e);
       const emailExists = await checkEmailExists(email);
