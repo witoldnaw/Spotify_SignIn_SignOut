@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -8,6 +8,17 @@ interface Props {
 interface Month {
     name: string;
     days: number;
+  }
+
+  interface MyStateType {
+    email: string;
+    confirmEmail: string;
+    password: string;
+    profilName: string;
+    selectMonth: number;
+    selectDay: number;
+    selectYear: number;
+    selectGender: string;
   }
 
 export const FormReg = ({ onSubmit, submitText }: Props) => {
@@ -30,6 +41,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
         const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           const emailInput = event.target.value;
             setEmail(emailInput);
+            handleChange(event)
           };
         
           const handleConfirmEmailChange = (
@@ -37,21 +49,25 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           ) => {
             const emailValue = event.target.value;
             setConfirmEmail(emailValue);
+            handleChange(event)
           };
         
           const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
+            handleChange(event)
           };
         
           const handleProfilNameChange = (
             event: React.ChangeEvent<HTMLInputElement>
           ) => {
             setProfilName(event.target.value);
+            handleChange(event)
           };
         
           const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
             const monthName = event.target.value
             setSelectMonth(monthName);
+            handleChange(event)
 
             const selectedMonth = numberMonth.find((m) => m.name === monthName)
             if (selectedMonth) {
@@ -62,34 +78,70 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueDay = parseInt(event.target.value, 10);
             setSelectDay(inputValueDay);
+            handleChange(event)
             setErrorMessageDay(inputValueDay > maxDayValue || inputValueDay < minDayValue ? "Podaj prawidłowy dzień miesiąca" : "")
             } 
         
           const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueYear = parseInt(event.target.value, 10);
             setSelectYear(inputValueYear);
+            handleChange(event)
             setErrorMessageYear(inputValueYear < 1900 || inputValueYear > 2020 ? "Podaj prawidłowy rok" : "");
           };
         
           const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setSelectGender(event.target.value)
+            handleChange(event)
           }
 
 
-    const [email, setEmail] = useState("");
-    const [confirmEmail, setConfirmEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [profilName, setProfilName] = useState("");
-    const [selectMonth, setSelectMonth] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [confirmEmail, setConfirmEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [profilName, setProfilName] = useState<string>("");
+    const [selectMonth, setSelectMonth] = useState<string>("");
     const [selectDay, setSelectDay] = useState<number>();
     const [selectYear, setSelectYear] = useState<number>();
     const [minDayValue, setMinDayValue] = useState(1);
     const [maxDayValue, setMaxDayValue] = useState(31);
-    const [errorMessageDay, setErrorMessageDay] = useState("");
-    const [errorMessageYear, setErrorMessageYear] = useState("");
-    const [errorMessageEmail, setErrorMessageEmail] = useState("")
+    const [errorMessageDay, setErrorMessageDay] = useState<string>("");
+    const [errorMessageYear, setErrorMessageYear] = useState<string>("");
+    const [errorMessageEmail, setErrorMessageEmail] = useState<string>("")
     const [selectGender, setSelectGender] = useState<string>()
+    const [formData, setFormData] = useState<MyStateType>({
+      email: "",
+      confirmEmail: "",
+      password: "",
+      profilName: "",
+      selectMonth: NaN,
+      selectDay: NaN,
+      selectYear: NaN,
+      selectGender: "",
+    })
+    const [ isFormValid, setIsFormValid] = useState(true)
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    };
+
+    
+  
+    // const handleSubmit = (e) => {
+    //   e.preventDefault();
+    //   // Handle form submission
+    // };
+  
+    useEffect(() => {
+      const { email, password, confirmEmail, profilName, selectDay, selectMonth, selectYear, selectGender} = formData;
+      const isFormValid =
+        email !== "" && password !== "" && confirmEmail !== "" && profilName !== ""
+      setIsFormValid(isFormValid);
+    }, [formData]);
+    
 
     return (
       <section>
@@ -101,16 +153,15 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
         onSubmit={(e: FormEvent<HTMLFormElement>) => {
           setErrorMessageEmail(confirmEmail !== email ? "Mail nie jest taki sam" : "");
           e.preventDefault();
-    
           onSubmit(e);
-          // setEmail("");
-          // setConfirmEmail("")
-          // setPassword("");
-          // setSelectMonth("");
-          // setSelectDay(NaN);
-          // setSelectYear(NaN);
-          // setProfilName("")
-          // setSelectGender("")
+          setEmail("");
+          setConfirmEmail("")
+          setPassword("");
+          setSelectMonth("");
+          setSelectDay(NaN);
+          setSelectYear(NaN);
+          setProfilName("")
+          setSelectGender("")
         }}
       >
 
@@ -123,7 +174,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={email}
               placeholder="Enter your email."
               onChange={handleEmailChange}
-              // required
+              required
             />
           </label>
           {errorMessageEmail && (
@@ -136,7 +187,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={confirmEmail}
               placeholder="Confirm your email."
               onChange={handleConfirmEmailChange}
-              // required
+              required
             />
           </label>
 
@@ -148,7 +199,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={password}
               placeholder="Create a password."
               onChange={handlePasswordChange}
-              // required
+              required
             />
           </label>
 
@@ -160,7 +211,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               value={profilName}
               placeholder="Enter a profil name."
               onChange={handleProfilNameChange}
-              // required
+              required
             />
           </label>
           <p>This appears on your profile.</p>
@@ -175,7 +226,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               placeholder="months"
               name="selectMonth"
               onChange={handleMonthChange}
-              // required
+              required
             >
               <option value="" disabled selected>
                 Months
@@ -223,7 +274,7 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               type="radio"
               value="Male"
               name="gender"
-              // required
+              required
               checked={selectGender === "Male"}
               onChange={handleGenderChange}>
             </input>
@@ -235,10 +286,9 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               type="radio"
               value="Female"
               name="gender"
+              required
               checked={selectGender === "Female"}
-              onChange={handleGenderChange}>
-              {/* required */}
-              
+              onChange={handleGenderChange}>            
             </input>
 
             <label>
@@ -277,9 +327,11 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
                 personal data, please see <Link to="/">Spotify’s Privacy Policy.</Link></p>
             </div>
           </div>
-          <button type="submit">{submitText}</button>
+          <button type="submit" disabled={!isFormValid}>{submitText}</button>
           <p>Have an account?<Link to="#">Log in.</Link></p>
         </div>
       </form>
     </section>
 )};
+
+
