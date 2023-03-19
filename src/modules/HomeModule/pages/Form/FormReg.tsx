@@ -10,17 +10,6 @@ interface Month {
     days: number;
   }
 
-  interface MyStateType {
-    email: string;
-    confirmEmail: string;
-    password: string;
-    profilName: string;
-    selectMonth: number;
-    selectDay: number;
-    selectYear: number;
-    selectGender: string;
-  }
-
 export const FormReg = ({ onSubmit, submitText }: Props) => {
 
     const numberMonth: Month[] = [
@@ -41,7 +30,6 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
         const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           const emailInput = event.target.value;
             setEmail(emailInput);
-            handleChange(event)
           };
         
           const handleConfirmEmailChange = (
@@ -49,25 +37,21 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           ) => {
             const emailValue = event.target.value;
             setConfirmEmail(emailValue);
-            handleChange(event)
           };
         
           const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
-            handleChange(event)
           };
         
           const handleProfilNameChange = (
             event: React.ChangeEvent<HTMLInputElement>
           ) => {
             setProfilName(event.target.value);
-            handleChange(event)
           };
         
           const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
             const monthName = event.target.value
             setSelectMonth(monthName);
-            handleChange(event)
 
             const selectedMonth = numberMonth.find((m) => m.name === monthName)
             if (selectedMonth) {
@@ -78,70 +62,36 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
           const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueDay = parseInt(event.target.value, 10);
             setSelectDay(inputValueDay);
-            handleChange(event)
             setErrorMessageDay(inputValueDay > maxDayValue || inputValueDay < minDayValue ? "Podaj prawidłowy dzień miesiąca" : "")
             } 
         
           const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             const inputValueYear = parseInt(event.target.value, 10);
             setSelectYear(inputValueYear);
-            handleChange(event)
             setErrorMessageYear(inputValueYear < 1900 || inputValueYear > 2020 ? "Podaj prawidłowy rok" : "");
           };
         
           const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setSelectGender(event.target.value)
-            handleChange(event)
           }
 
 
     const [email, setEmail] = useState<string>("");
     const [confirmEmail, setConfirmEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [profilName, setProfilName] = useState<string>("");
-    const [selectMonth, setSelectMonth] = useState<string>("");
+    const [password, setPassword] = useState("");
+    const [profilName, setProfilName] = useState("");
+    const [selectMonth, setSelectMonth] = useState("");
     const [selectDay, setSelectDay] = useState<number>();
     const [selectYear, setSelectYear] = useState<number>();
     const [minDayValue, setMinDayValue] = useState(1);
     const [maxDayValue, setMaxDayValue] = useState(31);
-    const [errorMessageDay, setErrorMessageDay] = useState<string>("");
-    const [errorMessageYear, setErrorMessageYear] = useState<string>("");
-    const [errorMessageEmail, setErrorMessageEmail] = useState<string>("")
+    const [errorMessageDay, setErrorMessageDay] = useState("");
+    const [errorMessageYear, setErrorMessageYear] = useState("");
+    const [errorMessageEmail, setErrorMessageEmail] = useState("")
     const [selectGender, setSelectGender] = useState<string>()
-    const [formData, setFormData] = useState<MyStateType>({
-      email: "",
-      confirmEmail: "",
-      password: "",
-      profilName: "",
-      selectMonth: NaN,
-      selectDay: NaN,
-      selectYear: NaN,
-      selectGender: "",
-    })
-    const [ isFormValid, setIsFormValid] = useState(true)
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    };
+    const isFormValid = email && confirmEmail
 
-    
-  
-    // const handleSubmit = (e) => {
-    //   e.preventDefault();
-    //   // Handle form submission
-    // };
-  
-    useEffect(() => {
-      const { email, password, confirmEmail, profilName, selectDay, selectMonth, selectYear, selectGender} = formData;
-      const isFormValid =
-        email !== "" && password !== "" && confirmEmail !== "" && profilName !== ""
-      setIsFormValid(isFormValid);
-    }, [formData]);
-    
 
     return (
       <section>
@@ -286,9 +236,8 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
               type="radio"
               value="Female"
               name="gender"
-              required
               checked={selectGender === "Female"}
-              onChange={handleGenderChange}>            
+              onChange={handleGenderChange}>
             </input>
 
             <label>
@@ -333,5 +282,3 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
       </form>
     </section>
 )};
-
-
