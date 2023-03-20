@@ -90,7 +90,8 @@ export const FormReg = ({ onSubmit, submitText }: Props) => {
     const [errorMessageEmail, setErrorMessageEmail] = useState("")
     const [selectGender, setSelectGender] = useState<string>()
 
-    const isFormValid = email && confirmEmail
+    const isFormValid = email && confirmEmail && password && profilName && selectMonth && 
+    selectDay && selectYear && selectGender
 
 
     return (
