@@ -13,10 +13,12 @@ type User = {
     email: string;
 }
 
+
 export const UserDataProvider = (props: { children: React.ReactNode }) => {
   const [userData, setUserData] = useState<unknown>(undefined);
   const [role, setRole] = useState("user");
   const [user, setUser] = useState<User | null>(null);
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -29,7 +31,7 @@ export const UserDataProvider = (props: { children: React.ReactNode }) => {
             return;
           }
 
-        //   setUser(user);
+          setUser({ id: userSnapshot.id, name: data.name, email: data.email });
           setUserData({ id: userSnapshot.id, ...data });
           data.isAdmin ? setRole("admin") : setRole("user");
         });
@@ -38,10 +40,13 @@ export const UserDataProvider = (props: { children: React.ReactNode }) => {
       }
     });
   }, []);
+  
 
   return (
     <userDataContext.Provider value={{ role, user, setUser, userData }}>
       {props.children}
     </userDataContext.Provider>
+
+    
   );
 };
