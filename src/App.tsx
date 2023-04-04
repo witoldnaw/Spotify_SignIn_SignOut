@@ -13,11 +13,11 @@ const App: React.FC = () => {
 // ZROBIĆ kompinent wykorzytujsacy useContext np. Navigation i sprawdzić czy dzial zalogowany i nie zalogowany
   return (
     <>
+          <UserHome userData={userData}/>
     <Router>
         <Routes>
           <Route path="register" element={<FoRegister  />} />
           <Route path="login" element={<Login/>} />
-          <Route path="home" element={<UserHome/>} />
           </Routes>
       </Router>
       

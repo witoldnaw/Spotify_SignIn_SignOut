@@ -12,7 +12,9 @@ type User = {
     name: string;
     email: string;
 }
-
+interface UserData {
+  userData: any;
+}
 
 export const UserDataProvider = (props: { children: React.ReactNode }) => {
   const [userData, setUserData] = useState<unknown>(undefined);
