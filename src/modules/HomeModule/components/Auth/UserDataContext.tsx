@@ -5,7 +5,9 @@ import { db, auth } from "../../../../API/firebase"
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 
-export const userDataContext = createContext<unknown>(undefined);
+export const userDataContext = React.createContext<UserData>({
+  userData: "",
+});
 
 type User = {
     id: string;
@@ -13,11 +15,11 @@ type User = {
     email: string;
 }
 interface UserData {
-  userData: any;
+  userData: string;
 }
 
 export const UserDataProvider = (props: { children: React.ReactNode }) => {
-  const [userData, setUserData] = useState<unknown>(undefined);
+  const [userData, setUserData] = useState<string>("");
   const [role, setRole] = useState("user");
   const [user, setUser] = useState<User | null>(null);
 
@@ -45,7 +47,7 @@ export const UserDataProvider = (props: { children: React.ReactNode }) => {
   
 
   return (
-    <userDataContext.Provider value={{ role, user, setUser, userData }}>
+    <userDataContext.Provider value={{ userData }}>
       {props.children}
     </userDataContext.Provider>
 

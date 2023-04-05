@@ -10,7 +10,6 @@ import { userDataContext } from './modules/HomeModule/components/Auth/UserDataCo
 const App: React.FC = () => {
   const { userData } = useContext(userDataContext);
 
-// ZROBIĆ kompinent wykorzytujsacy useContext np. Navigation i sprawdzić czy dzial zalogowany i nie zalogowany
   return (
     <>
           <UserHome userData={userData}/>
