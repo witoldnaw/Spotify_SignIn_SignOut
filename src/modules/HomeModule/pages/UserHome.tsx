@@ -9,13 +9,14 @@ import { signOut } from "firebase/auth";
 //   window.location = "http:/";
 // };
 
-interface UserHomeProps {
+export interface UserHomeProps {
   userData: {
     status: string;
   };
 }
 
-export const UserHome = ({ userData }: UserHomeProps) => {
+export const UserHome: React.FC<UserHomeProps> = ({ userData }) => {
+  console.log(userData)
   return (
     <>
       <nav>
@@ -23,18 +24,17 @@ export const UserHome = ({ userData }: UserHomeProps) => {
           <div>
             {!userData && (
               <>
-                <Link to="login">
+                <Link to="auth/login">
                   <button>Zaloguj się</button>
                 </Link>
-                <Link to="register">
+                <Link to="auth/register">
                   <button>Zarejestruj się</button>
                 </Link>
               </>
             )}
-            {userData.status === "user" && (
+            {userData && userData.status === "user" && (
               <>
-                <Link to="/">
-                  {/* <button onClick={signOutReload}>Wyloguj się</button> */}
+                <Link to="auth/register">
                   <button>Kliknij</button>
                 </Link>
               </>
@@ -45,4 +45,3 @@ export const UserHome = ({ userData }: UserHomeProps) => {
     </>
   );
 };
-

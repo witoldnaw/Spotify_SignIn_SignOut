@@ -1,28 +1,20 @@
-import React from "react";
-import { createContext } from "react";
-import { useState, useEffect } from "react";
-import { db, auth } from "../../../../API/firebase"
+import React, { createContext, useState, useEffect } from "react";
+import { db, auth } from "../../../../API/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 
-export const userDataContext = React.createContext<UserData>({
-  userData: "",
+export interface UserData {
+  status: string;
+}
+
+export const userDataContext = createContext<UserData>({
+  status: "",
 });
 
-type User = {
-    id: string;
-    name: string;
-    email: string;
-}
-interface UserData {
-  userData: string;
-}
-
 export const UserDataProvider = (props: { children: React.ReactNode }) => {
-  const [userData, setUserData] = useState<string>("");
+  const [userData, setUserData] = useState<UserData>({ status: "" });
   const [role, setRole] = useState("user");
-  const [user, setUser] = useState<User | null>(null);
-
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -30,27 +22,22 @@ export const UserDataProvider = (props: { children: React.ReactNode }) => {
         const userRef = doc(db, "users", user.uid);
 
         onSnapshot(userRef, (userSnapshot) => {
-          const data = userSnapshot.data()
+          const data = userSnapshot.data();
           if (!data) {
+            setUserData({ status: "" }); // jesli nie znaleziono danych to ustawiamy status na pusty string
             return;
           }
-
-          setUser({ id: userSnapshot.id, name: data.name, email: data.email });
-          setUserData({ id: userSnapshot.id, ...data });
-          data.isAdmin ? setRole("admin") : setRole("user");
+          setUserData({ status: data.status }); // ustawiamy status na wartość pola "status" z dokumentu w Firestore
         });
       } else {
-        setUser(null);
+        setUserData({ status: "" });
       }
     });
   }, []);
-  
 
   return (
-    <userDataContext.Provider value={{ userData }}>
+    <userDataContext.Provider value={userData}>
       {props.children}
     </userDataContext.Provider>
-
-    
   );
 };
